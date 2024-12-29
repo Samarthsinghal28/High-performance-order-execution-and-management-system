@@ -5,22 +5,6 @@
 
 This project is a C++ implementation of a trading system that interacts with the [Deribit](https://www.deribit.com/) cryptocurrency exchange. It allows users to perform order management functions, such as placing, canceling, and modifying orders, and provides real-time market data streaming via a custom WebSocket server.
 
-## Table of Contents
-
-- [Initial Setup](#initial-setup)
-- [Features](#features)
-- [Market Coverage](#market-coverage)
-- [Technical Requirements](#technical-requirements)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Running the Server](#running-the-server)
-  - [Running the Client](#running-the-client)
-- [Configuration](#configuration)
-- [Example Commands](#example-commands)
-- [Contributing](#contributing)
-- [License](#license)
-
 ## Initial Setup
 
 1. **Create a new Deribit Testnet Account**
