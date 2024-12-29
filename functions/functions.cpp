@@ -149,7 +149,6 @@ std::string placeOrder(const std::string& orderType, const std::string& price, c
         // Extract relevant order details
         const auto& order = responseJson["result"]["order"]; // Access the nested "order" object
         std::ostringstream output;
-        output << "Order Placement Latency: " << latency << " ms" << "\n";
         output << "Order placed successfully:\n";
         output << "Order ID: " << order.value("order_id", "N/A") << "\n";
         output << "Instrument: " << order.value("instrument_name", "N/A") << "\n";
@@ -158,14 +157,10 @@ std::string placeOrder(const std::string& orderType, const std::string& price, c
         output << "Direction: " << order.value("direction", "N/A") << "\n";
         output << "Order State: " << order.value("order_state", "N/A") << "\n";
         output << "Time In Force: " << order.value("time_in_force", "N/A") << "\n";
+        output << "Order Placement Latency: " << latency << " ms" << "\n";
 
         return output.str();
 
-
-        return output.str();
-
-
-return output.str();
     } else {
         std::cerr << "Failed to place order." << std::endl;
         return "Failed to place order.";
@@ -187,16 +182,19 @@ std::string cancelOrder(const std::string& orderId, const std::string& accessTok
     auto responseJson = json::parse(response, nullptr, false);
 
     if (responseJson.contains("result")) {
-    auto result = responseJson["result"];
-    std::cout << "Order canceled successfully:\n";
-    std::cout << "Order ID: " << result["order_id"] << std::endl;
-    std::cout << "Instrument Name: " << result["instrument_name"] << std::endl;
-    std::cout << "Amount: " << result["amount"] << std::endl;
-    std::cout << "Price: " << result["price"] << std::endl;
-    std::cout << "Order State: " << result["order_state"] << std::endl;
-    std::cout << "Cancel Reason: " << result["cancel_reason"] << std::endl;
-    // Include any other fields you consider relevant
-    return result;
+        auto result = responseJson["result"];
+        std::ostringstream output;
+        output << "Order canceled successfully:\n";
+        output << "Order ID: " << result["order_id"] << std::endl;
+        output << "Instrument Name: " << result["instrument_name"] << std::endl;
+        output << "Amount: " << result["amount"] << std::endl;
+        output << "Price: " << result["price"] << std::endl;
+        output << "Order State: " << result["order_state"] << std::endl;
+        output << "Cancel Reason: " << result["cancel_reason"] << std::endl;
+
+        // Include any other fields you consider relevant
+        return output.str();
+
     }else {
         std::cerr << "Failed to cancel order." << std::endl;
         return "Failed to cancel order." ;
@@ -217,33 +215,33 @@ std::string modifyOrder(const std::string& orderId, const std::string& newPrice,
 
     std::string response = sendRequest("https://test.deribit.com/api/v2/private/edit", payload, accessToken);
     auto responseJson = json::parse(response, nullptr, false);
-
     if (responseJson.contains("result")) {
         auto result = responseJson["result"];
-        std::cout << "Order modified successfully.\n";
 
         // Extract order details from result["order"]
         if (result.contains("order")) {
+            std::ostringstream output;
             auto order = result["order"];
-            
+            output << "Order modified successfully.\n";
             // Extract relevant fields
             if (order.contains("order_id"))
-                std::cout << "Order ID: " << order["order_id"] << std::endl;
+                output << "Order ID: " << order["order_id"] << std::endl;
             if (order.contains("instrument_name"))
-                std::cout << "Instrument Name: " << order["instrument_name"] << std::endl;
+                output << "Instrument Name: " << order["instrument_name"] << std::endl;
             if (order.contains("amount"))
-                std::cout << "Amount: " << order["amount"] << std::endl;
+                output << "Amount: " << order["amount"] << std::endl;
             if (order.contains("price"))
-                std::cout << "Price: " << order["price"] << std::endl;
+                output << "Price: " << order["price"] << std::endl;
             if (order.contains("order_state"))
-                std::cout << "Order State: " << order["order_state"] << std::endl;
+                output << "Order State: " << order["order_state"] << std::endl;
             if (order.contains("replaced"))
-                std::cout << "Replaced: " << (order["replaced"].get<bool>() ? "Yes" : "No") << std::endl;
+                output << "Replaced: " << (order["replaced"].get<bool>() ? "Yes" : "No") << std::endl;
             // Add any other fields you consider relevant
+            return output.str();
         } else {
             std::cerr << "Error: 'order' not found in 'result'.\n";
         }
-        return responseJson["result"];
+        return "Failed to modify order.";
     } else {
         std::cerr << "Failed to modify order." << std::endl;
         return "Failed to modify order." ;

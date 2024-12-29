@@ -101,7 +101,7 @@ public:
                         break;
                     }
                     case 6: {
-                        stop();
+                        exit(1);
                         return;
                     }
                     default: {
