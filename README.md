@@ -27,7 +27,7 @@ This project is a C++ implementation of a trading system that interacts with the
    - Custom WebSocket server functionality.
    - Allows clients to subscribe to trading symbols.
    - Streams continuous order book updates for subscribed symbols.
-   - Place, cancel, modify orders using the websocket messages.
+   - Place, cancel, modify orders using the websocket messages. (Additional Feature)
 
 
 ## Technology Stack
@@ -221,9 +221,6 @@ project_root/
 ## Client Output
 
 ```
-
-
-```
     Connected to WebSocket server
     Subscription request sent for: BTC-PERPETUAL
     Enter 'quit' to exit
@@ -262,7 +259,25 @@ project_root/
     Price: 94537.5, Amount: 2000
 
     Propagation Delay: 275859 ns
+```
 
----
-This project showcases advanced C++ programming skills, expertise in WebSocket development, and proficiency in API integration. It is designed with modularity and scalability, making it a robust solution for real-time trading systems.
+# Performance Analysis and Optimization
+
+## Latency Benchmarking
+
+### Order Placement Latency: 
+```
+   Order Response: Order Placement Latency: 772 ms
+```
+
+### WebSocket Message Propagation Delay:
+```
+   Propagation Delay: 275859 ns
+```
+
+### Methodology
+- Implemented high-resolution timers (e.g., std::chrono::high_resolution_clock) to measure latency in milliseconds or nanoseconds.
+
+# License
+This project is licensed under the MIT License.
 
